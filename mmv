@@ -7,7 +7,20 @@ use EdmondsCommerce\MagentoModuleVersions\ModuleFactory;
 
 use PHPHtmlParser\Dom;
 
-$moduleConnectPages = json_decode(file_get_contents('modules.json'));
+if ($argc !== 2) {
+    echo "mmv <path/to/modules.json>";
+    exit(1);
+}
+
+$modulesJson = $argv[1];
+
+if (file_exists($modulesJson) && is_readable($modulesJson)) {
+    $moduleConnectPages = json_decode(file_get_contents($modulesJson));
+}
+else {
+    fwrite(STDERR, "ERROR: File '$modulesJson' must exist and be readable\n");
+    exit(1);
+}
 
 $dom = new Dom();
 $table = new Console_Table();
