@@ -1,4 +1,4 @@
-#Magento Module Version Checker
+# Magento Module Version Checker
 
 ## By [Edmonds Commerce](https://www.edmondscommerce.co.uk)
 
