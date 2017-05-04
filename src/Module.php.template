@@ -1,0 +1,16 @@
+<?php
+
+namespace EdmondsCommerce\MagentoModuleVersions;
+
+class Module extends AbstractModule
+{
+    public function getSelector()
+    {
+        return '';
+    }
+
+    public function cleanVersionNumber($versionNumber)
+    {
+        return $versionNumber;
+    }
+}

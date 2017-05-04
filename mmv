@@ -1,0 +1,22 @@
+#!/usr/bin/env php
+<?php
+
+require "vendor/autoload.php";
+
+use EdmondsCommerce\MagentoModuleVersions\ModuleFactory;
+
+use PHPHtmlParser\Dom;
+
+$moduleConnectPages = json_decode(file_get_contents('modules.json'));
+
+$dom = new Dom();
+$table = new Console_Table();
+$table->setHeaders(array('Name', 'Version'));
+
+foreach ($moduleConnectPages as $page => $tag) {
+    $module = ModuleFactory::create($dom, $page);
+    $version = $module->getLatestVersion();
+    $table->addRow(array($tag, $version));
+}
+
+echo $table->getTable();
