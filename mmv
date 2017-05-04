@@ -8,7 +8,7 @@ use EdmondsCommerce\MagentoModuleVersions\ModuleFactory;
 use PHPHtmlParser\Dom;
 
 if ($argc !== 2) {
-    echo "mmv <path/to/modules.json>";
+    echo "mmv <path/to/modules.json>\n";
     exit(1);
 }
 
