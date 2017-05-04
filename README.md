@@ -11,6 +11,8 @@ A simple script to check
 Install via composer
 
 ```bash
+git clone git@github.com:edmondscommerce/magento-module-version-checker.git
+cd magento-module-version-checker
 composer install
 ```
 
