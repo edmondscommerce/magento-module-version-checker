@@ -39,4 +39,66 @@ format:
 
 ### Custom Sources
 
-tbc
+In order to add a custom source you need implement a `Module` class and add the class to the `ModuleFactory`.
+
+#### Implementing Module
+
+I've created a template `Module` class for you to base yours on [here](https://github.com/edmondscommerce/magento-module-version-checker/blob/master/src/Module.php.template).
+
+You simply need to make the following changes:
+
+```php
+<?php
+
+namespace EdmondsCommerce\MagentoModuleVersions;
+
+class <YourSource>Module extends AbstractModule
+{
+    public function getSelector()
+    {
+        // Here you need to add a css selector to grab the
+        // version data from the page.
+        return '';
+    }
+
+    public function cleanVersionNumber($versionNumber)
+    {
+        // Here you need to add some clean up code that takes the
+        // selected version and strips out only the version number.
+        return $versionNumber;
+    }
+}
+```
+
+You can see an example of this
+[here](https://github.com/edmondscommerce/magento-module-version-checker/blob/master/src/MagentoConnectModule.php).
+
+#### Adding Module to Module Factory
+
+Once you've implemented a `Module` class you need to add it to the
+[`ModuleFactory`](https://github.com/edmondscommerce/magento-module-version-checker/blob/master/src/ModuleFactory.php).
+
+```php
+<?php
+...
+class ModuleFactory
+{
+    ...
+    public static function create($dom, $page)
+    {
+        ...
+        switch ($host) {
+            case 'www.magentocommerce.com':
+                return new MagentoConnectModule($dom, $page);
+                break;
+            case 'www.your-modules-domain.com':
+                return new <YourSource>Module($dom, $page);
+                break;
+            default:
+                throw new Exception("Invalid host '$host'");
+        }
+    }
+}
+```
+
+Once that's done you should be able to add your new modules to the config `json` and run the script.
